@@ -35,7 +35,17 @@ conda install habitat-sim=0.2.5 -c conda-forge -c aihabitat
 
 ### 下载 3D 测试场景和示例对象
 
-已经下载完毕，见 Task01/data
+下载 3D 测试场景
+
+```bash
+python -m habitat_sim.utils.datasets_download --uids habitat_test_scenes --data-path data/
+```
+
+下载示例对象
+
+```bash
+python -m habitat_sim.utils.datasets_download --uids habitat_example_objects --data-path data/
+```
 
 ### 进行测试
 
