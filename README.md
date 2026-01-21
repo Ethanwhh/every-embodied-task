@@ -14,4 +14,4 @@
 git clone https://github.com/Ethanwhh/every-embodied-task.git
 ```
 
-每个项目的使用说明见每个项目的说明文档，如Task01/task01.md
+每个项目的使用说明见每个项目的说明文档，如  Task01/task01.md
