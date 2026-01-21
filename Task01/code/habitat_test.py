@@ -46,7 +46,6 @@ def make_simple_cfg(settings):
     # simulator backend
     sim_cfg = habitat_sim.SimulatorConfiguration()
     sim_cfg.scene_id = settings["scene"]
-    sim_cfg.gpu_device_id = 0  # 显式指定 GPU 设备 ID，通常为 0
 
     # agent
     agent_cfg = habitat_sim.agent.AgentConfiguration()
