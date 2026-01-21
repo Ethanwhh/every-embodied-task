@@ -67,3 +67,6 @@ habitat-viewer data/scene_datasets/habitat-test-scenes/skokloster-castle.glb
 ![](img/04.png)
 
 测试成功！
+
+## 基础实践
+
