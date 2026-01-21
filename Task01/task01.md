@@ -64,6 +64,6 @@ habitat-viewer data/scene_datasets/habitat-test-scenes/skokloster-castle.glb
 
 卸载后再次测试：
 
+![](img/04.png)
 
-
-
+测试成功！
