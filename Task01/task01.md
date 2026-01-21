@@ -70,3 +70,22 @@ habitat-viewer data/scene_datasets/habitat-test-scenes/skokloster-castle.glb
 
 ## 基础实践
 
+### 下载MP3D的示例场景数据
+
+```bash
+conda activate habitat
+python -m habitat_sim.utils.datasets_download --uids mp3d_example_scene --data-path data/
+```
+
+### Habitat-sim基础功能测试
+
+运行habitat_test.py文件,这里先进入到code目录下：
+
+```bash
+python habitat_test.py
+```
+
+测试结果如下：
+
+![](img/05.png)
+
