@@ -89,3 +89,16 @@ python habitat_test.py
 
 ![](img/05.png)
 
+### Habitat-sim进阶配置
+
+运行habitat_random.py
+
+```bash
+python habitat_random.py
+```
+
+运行完这个文件后，得到如下的结果：
+
+![](img/06.png)
+
+### Habitat-sim的NavMesh详解

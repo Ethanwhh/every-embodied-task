@@ -73,10 +73,10 @@ def make_simple_cfg(settings):
 
     return habitat_sim.Configuration(sim_cfg, [agent_cfg])
 
-display = True #question???
+display = True 
 
 test_scene = "../data/scene_datasets/mp3d_example/17DRP5sb8fy/17DRP5sb8fy.glb"
-# mp3d_scene_dataset = "./data/scene_datasets/mp3d_example/mp3d.scene_dataset_config.json"
+mp3d_scene_dataset = "../data/scene_datasets/mp3d_example/mp3d.scene_dataset_config.json"
 
 rgb_sensor = True
 depth_sensor = True
@@ -86,7 +86,7 @@ sim_settings = {
     "width": 256,  # Spatial resolution of the observations
     "height": 256,
     "scene": test_scene,  # Scene path
-    # "scene_dataset": mp3d_scene_dataset,
+    "scene_dataset": mp3d_scene_dataset,
     "default_agent": 0,
     "sensor_height": 1.5,  # Height of sensors in meters
     "color_sensor": rgb_sensor,  # RGB sensor
@@ -100,7 +100,7 @@ def make_cfg(settings):
     sim_cfg = habitat_sim.SimulatorConfiguration()
     sim_cfg.gpu_device_id = 0
     sim_cfg.scene_id = settings["scene"]
-    # sim_cfg.scene_dataset_config_file = settings["scene_dataset"]
+    sim_cfg.scene_dataset_config_file = settings["scene_dataset"]
     sim_cfg.enable_physics = settings["enable_physics"]
 
     # Note: all sensors must have the same resolution
