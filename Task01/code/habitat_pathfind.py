@@ -175,9 +175,8 @@ def draw_agent(top_down_map, agent_pos, angle, agent_radius_px=8, agent_color=(0
     top_down_map[:] = np.array(img)
 
 display = True
-test_scene = "./data/scene_datasets/mp3d_example/17DRP5sb8fy/17DRP5sb8fy.glb"
-# test_scene = "./data/scene_datasets/habitat-test-scenes/apartment_1.glb"
-mp3d_scene_dataset = "./data/scene_datasets/mp3d_example/mp3d.scene_dataset_config.json"
+test_scene = "../data/scene_datasets/mp3d_example/17DRP5sb8fy/17DRP5sb8fy.glb"
+mp3d_scene_dataset = "../data/scene_datasets/mp3d_example/mp3d.scene_dataset_config.json"
 rgb_sensor = True 
 depth_sensor = True  
 semantic_sensor = True 

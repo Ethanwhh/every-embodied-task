@@ -118,3 +118,19 @@ python habitat_mesh.py
 使用get_topdown_map生成的俯视图：
 
 ![](img/08.png)
+
+### habitat_pathfind.py详解
+
+运行habitat_pathfind.py
+
+```bash
+python habitat_pathfind.py
+```
+
+俯视图如下：
+
+![](img/09.png)
+
+机器人第一视角运行视图如下：
+
+![](img/10.png)
