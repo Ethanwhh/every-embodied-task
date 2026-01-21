@@ -113,9 +113,9 @@ def get_topdown_map(pathfinder, height, meters_per_pixel) -> np.ndarray:
 
     return topdown_map
 
-display = True #question???
-test_scene = "./data/scene_datasets/mp3d_example/17DRP5sb8fy/17DRP5sb8fy.glb"
-# test_scene = "./data_test/scene_datasets/habitat-test-scenes/apartment_1.glb"
+display = True 
+test_scene = "../data/scene_datasets/mp3d_example/17DRP5sb8fy/17DRP5sb8fy.glb"
+
 rgb_sensor = True 
 depth_sensor = True
 semantic_sensor = True 
@@ -133,7 +133,6 @@ sim_settings = {
     "seed": 1,  # used in the random navigation
     "enable_physics": False,  # kinematics only
 }
-# sim_settings["scene"] = "./data_test/scene_datasets/habitat-test-scenes/apartment_1.glb"
 
 cfg = make_cfg(sim_settings)
 sim = habitat_sim.Simulator(cfg)

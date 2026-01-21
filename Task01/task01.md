@@ -102,3 +102,19 @@ python habitat_random.py
 ![](img/06.png)
 
 ### Habitat-sim的NavMesh详解
+
+运行habitat_mesh.py 
+
+```bash
+python habitat_mesh.py 
+```
+
+最终得到的mesh图结果如下所示：
+
+使用sim.pathfinder.get_topdown_view生成的俯视图：
+
+![](img/07.png)
+
+使用get_topdown_map生成的俯视图：
+
+![](img/08.png)
