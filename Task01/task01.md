@@ -47,6 +47,14 @@ python -m habitat_sim.utils.datasets_download --uids habitat_test_scenes --data-
 python -m habitat_sim.utils.datasets_download --uids habitat_example_objects --data-path data/
 ```
 
+![](img/11.png)
+
+Habitat 的下载脚本 (datasets_download) 采用了“数据版本管理”的设计模式。注意看下载的数据，脚本做了两件事：
+
+存储真实数据：它把真实的文件（模型、贴图等）下载到了 data/versioned_data/中。这样做是为了支持版本控制（比如以后出了新的版本，可以并存）。
+
+创建快捷方式（软链接）：为了方便使用，在 data/下创建了软链接，直接指向上面那个真实目录。
+
 ### 进行测试
 
 ```bash
