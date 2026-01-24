@@ -177,3 +177,55 @@ python habitat_pathfind.py
 
 # Habitat-lab环境搭建及基础实践
 
+## 环境搭建
+
+### conda环境配置
+
+这里可以直接使用habitat-sim创建的conda环境,在下载habitat-lab的时候注意需要与安装的habitat-sim版本一致。
+
+```bash
+git clone --branch v0.2.5 https://github.com/facebookresearch/habitat-lab.git
+cd habitat-lab
+pip install -e habitat-lab
+```
+
+同时安装habitat-baselines
+
+```bash
+pip install -e habitat-baselines
+```
+
+安装完 habitat-baselines 时，pip 的依赖解析器把 numpy 自动升级到了 2.0.2，这导致了与 habitat-sim 和 numpy-quaternion 的严重冲突。
+
+>habitat-sim 0.2.5 requires numpy<1.24.0,>=1.20.0, but you have numpy 2.0.2 which is incompatible.
+
+手动降级：
+
+```bash
+pip install "numpy<1.24.0"
+```
+
+降级后出现新的错误：
+
+>moviepy 2.2.1 requires numpy>=1.25.0, but you have numpy 1.23.5 which is incompatible.
+
+降级 moviepy 到 1.0.3 (这是一个稳定且支持旧 numpy 的版本)
+
+```bash
+pip install moviepy==1.0.3
+```
+
+### 下载3D场景数据和点导航数据
+
+```bash
+python -m habitat_sim.utils.datasets_download --uids habitat_test_scenes --data-path data/
+```
+
+```bash
+python -m habitat_sim.utils.datasets_download --uids habitat_test_pointnav_dataset --data-path data/
+```
+
+场景数据在 habitat-sim 部分已经下载过了，下载点导航数据即可。
+
+## 基础实践
+

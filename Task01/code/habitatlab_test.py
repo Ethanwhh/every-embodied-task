@@ -15,7 +15,7 @@ def transform_rgb_bgr(image):
 
 def example():
     env = habitat.Env(
-        config=habitat.get_config("pointnav/pointnav_habitat_test.yaml")
+        config=habitat.get_config("benchmark/nav/pointnav/pointnav_habitat_test.yaml")
     )
 
     print("Environment creation successful")
