@@ -241,3 +241,27 @@ python code/habitatlab_test.py
 
 可以通过W、A、S、D进行控制。
 
+### 全自动导航
+
+```bash
+python code/habitatlab_example.py 
+```
+
+运行结果：
+
+![](img/13.png)
+
+### RLEnv框架的全自动导航
+
+```bash
+python code/habitat_rl.py
+```
+
+运行结果：
+
+![](img/14.png)
+
+完整视频：  
+<video src="code/skokloster-castle.glb_3662.mp4" autoplay="true" controls="controls" width="800" height="250">
+</video>
+

@@ -30,7 +30,7 @@ if TYPE_CHECKING:
     from habitat.core.simulator import Observations
     from habitat.sims.habitat_simulator.habitat_simulator import HabitatSim
 
-output_path = "examples/tutorials/habitat_lab_visualization/"
+output_path = "./code"
 os.makedirs(output_path, exist_ok=True)
 
 class ShortestPathFollowerAgent(Agent):

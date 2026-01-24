@@ -14,9 +14,7 @@ from habitat.tasks.nav.shortest_path_follower import ShortestPathFollower
 from habitat.utils.visualizations import maps
 from habitat.utils.visualizations.utils import images_to_video
 
-IMAGE_DIR = os.path.join("examples", "images")
-if not os.path.exists(IMAGE_DIR):
-    os.makedirs(IMAGE_DIR)
+IMAGE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class SimpleRLEnv(habitat.RLEnv):
