@@ -97,6 +97,13 @@ python habitat_test.py
 
 ![](img/05.png)
 
+所有结果：
+
+![](code/observation_0.png)
+![](code/observation_1.png)
+![](code/observation_2.png)
+![](code/observation_3.png)
+
 ### Habitat-sim进阶配置
 
 运行habitat_random.py
@@ -109,7 +116,15 @@ python habitat_random.py
 
 ![](img/06.png)
 
-### Habitat-sim的NavMesh详解
+所有结果：
+
+![](code/randomtest_0.png)
+![](code/randomtest_1.png)
+![](code/randomtest_2.png)
+![](code/randomtest_3.png)
+![](code/randomtest_4.png)
+
+### Habitat-sim的NavMesh
 
 运行habitat_mesh.py 
 
@@ -122,10 +137,12 @@ python habitat_mesh.py
 使用sim.pathfinder.get_topdown_view生成的俯视图：
 
 ![](img/07.png)
+![](code/navmesh_0.png)
 
 使用get_topdown_map生成的俯视图：
 
 ![](img/08.png)
+![](code/navmesh_1.png)
 
 ### habitat_pathfind.py详解
 
@@ -142,3 +159,21 @@ python habitat_pathfind.py
 机器人第一视角运行视图如下：
 
 ![](img/10.png)
+
+所有结果：
+
+![](code/pathfind2_0.png)
+![](code/pathfind2_1.png)
+![](code/pathfind2_2.png)
+![](code/pathfind2_3.png)
+![](code/pathfind2_4.png)
+![](code/pathfind2_5.png)
+![](code/pathfind2_6.png)
+![](code/pathfind2_7.png)
+![](code/pathfind2_8.png)
+![](code/pathfind2_9.png)
+![](code/pathfind2_10.png)
+![](code/pathfind2_11.png)
+
+# Habitat-lab环境搭建及基础实践
+
