@@ -229,3 +229,15 @@ python -m habitat_sim.utils.datasets_download --uids habitat_test_pointnav_datas
 
 ## 基础实践
 
+### 交互式导航：
+
+```bash
+python code/habitatlab_test.py 
+```
+
+运行结果：
+
+![](img/12.png)
+
+可以通过W、A、S、D进行控制。
+
