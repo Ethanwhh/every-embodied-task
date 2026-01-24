@@ -1,5 +1,5 @@
 .vscode
 
-data/
+Task01/data/
 
-*.pth
+Task02/sam_vit_b_01ec64.pth
