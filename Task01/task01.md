@@ -261,7 +261,3 @@ python code/habitat_rl.py
 
 ![](img/14.png)
 
-完整视频：  
-<video src="code/skokloster-castle.glb_3662.mp4" autoplay="true" controls="controls" width="800" height="250">
-</video>
-
