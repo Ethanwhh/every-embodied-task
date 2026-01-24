@@ -33,7 +33,7 @@ python interactive_sam_depth.py
 
 ![](img/01.png)
 
-问题是 GPU 显存（约 8GB）只有 7.54 GiB 可用，而vit_h 模型非常庞大，推理时需要消耗大量显存，很容易就在 8GB 显存的显卡上 OOM (Out Of Memory)。解决方案：改用轻量级的 ViT-B (Base) 模型，
+问题是 GPU 显存（约 8GB）只有 7.54 GiB 可用，而 vit_h 模型非常庞大，推理时需要消耗大量显存，很容易就在 8GB 显存的显卡上 OOM (Out Of Memory)。解决方案：改用轻量级的 ViT-B (Base) 模型，如果大家显存够的话就使用 vit_h 。
 
 ### 下载 ViT-B 权重文件：
 
