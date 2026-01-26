@@ -7,6 +7,9 @@ from habitat_sim.utils import viz_utils as vut  # 可视化工具函数（如绘
 
 img_counter = 0
 def display_sample(rgb_obs, semantic_obs=np.array([]), depth_obs=np.array([])):
+    """
+    显示观测样本（RGB、语义分割、深度图）
+    """
     from habitat_sim.utils.common import d3_40_colors_rgb
 
     rgb_img = Image.fromarray(rgb_obs, mode="RGBA")
@@ -43,15 +46,17 @@ def display_sample(rgb_obs, semantic_obs=np.array([]), depth_obs=np.array([])):
     plt.close()
 
 def make_simple_cfg(settings):
-    # simulator backend
+    """
+    创建简单的仿真配置
+    """
+    # 仿真器后端配置
     sim_cfg = habitat_sim.SimulatorConfiguration()
     sim_cfg.scene_id = settings["scene"]
 
-    # agent
+    # 智能体配置
     agent_cfg = habitat_sim.agent.AgentConfiguration()
 
-    # In the 1st example, we attach only one sensor,
-    # a RGB visual sensor, to the agent
+    # 在第一个例子中，我们只给智能体附加一个RGB视觉传感器
     rgb_sensor_spec = habitat_sim.CameraSensorSpec()
     rgb_sensor_spec.uuid = "color_sensor"
     rgb_sensor_spec.sensor_type = habitat_sim.SensorType.COLOR
@@ -67,11 +72,11 @@ display = True
 test_scene = "../data/scene_datasets/mp3d_example/17DRP5sb8fy/17DRP5sb8fy.glb"
 
 sim_settings = {
-    "scene": test_scene,  # Scene path
-    "default_agent": 0,  # Index of the default agent
-    "sensor_height": 1.5,  # Height of sensors in meters, relative to the agent
-    "width": 256,  # Spatial resolution of the observations
-    "height": 256,
+    "scene": test_scene,  # 场景路径
+    "default_agent": 0,  # 默认智能体索引
+    "sensor_height": 1.5,  # 传感器相对智能体的高度（米）
+    "width": 256,  # 观测图像的空间分辨率（宽度）
+    "height": 256, # 观测图像的空间分辨率（高度）
 }
 
 cfg = make_simple_cfg(sim_settings)
@@ -79,12 +84,12 @@ sim = habitat_sim.Simulator(cfg)
 
 agent = sim.initialize_agent(sim_settings["default_agent"])
 
-# Set agent state
+# 设置智能体状态
 agent_state = habitat_sim.AgentState()
-agent_state.position = np.array([-0.6, 0.0, 0.0])  # in world space
+agent_state.position = np.array([-0.6, 0.0, 0.0])  # 世界坐标系
 agent.set_state(agent_state)
 
-# Get agent state
+# 获取智能体状态
 agent_state = agent.get_state()
 print("agent_state: position", agent_state.position, "rotation", agent_state.rotation)
 

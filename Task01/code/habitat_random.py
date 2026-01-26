@@ -12,11 +12,14 @@ from matplotlib import pyplot as plt  # 绘图库
 from PIL import Image  # PIL/Pillow：图像处理（读、写、裁剪等）
 import habitat_sim  # Habitat-Sim主库（仿真核心）
 from habitat_sim.utils import common as utils  # 通用工具函数（如坐标转换、数据格式处理）
-from habitat_sim.utils import viz_utils as vut  # 可视化工具函数（如绘制场景、轨迹
+from habitat_sim.utils import viz_utils as vut  # 可视化工具函数（如绘制场景、轨迹）
 # from habitat_sim.utils.visualizations import maps
 
 img_counter = 0
 def display_sample(rgb_obs, semantic_obs=np.array([]), depth_obs=np.array([])):
+    """
+    显示观测样本（RGB、语义分割、深度图）
+    """
     from habitat_sim.utils.common import d3_40_colors_rgb
 
     rgb_img = Image.fromarray(rgb_obs, mode="RGBA")
@@ -53,15 +56,17 @@ def display_sample(rgb_obs, semantic_obs=np.array([]), depth_obs=np.array([])):
     plt.close()
 
 def make_simple_cfg(settings):
-    # simulator backend
+    """
+    创建简单的仿真配置（仅RGB传感器）
+    """
+    # 仿真器后端配置
     sim_cfg = habitat_sim.SimulatorConfiguration()
     sim_cfg.scene_id = settings["scene"]
 
-    # agent
+    # 智能体配置
     agent_cfg = habitat_sim.agent.AgentConfiguration()
 
-    # In the 1st example, we attach only one sensor,
-    # a RGB visual sensor, to the agent
+    # 在第一个例子中，我们只给智能体附加一个RGB视觉传感器
     rgb_sensor_spec = habitat_sim.CameraSensorSpec()
     rgb_sensor_spec.uuid = "color_sensor"
     rgb_sensor_spec.sensor_type = habitat_sim.SensorType.COLOR
@@ -83,27 +88,30 @@ depth_sensor = True
 semantic_sensor = True 
 
 sim_settings = {
-    "width": 256,  # Spatial resolution of the observations
-    "height": 256,
-    "scene": test_scene,  # Scene path
-    "scene_dataset": mp3d_scene_dataset,
-    "default_agent": 0,
-    "sensor_height": 1.5,  # Height of sensors in meters
-    "color_sensor": rgb_sensor,  # RGB sensor
-    "depth_sensor": depth_sensor,  # Depth sensor
-    "semantic_sensor": semantic_sensor,  # Semantic sensor
-    "seed": 1,  # used in the random navigation
-    "enable_physics": False,  # kinematics only
+    "width": 256,  # 观测图像的空间分辨率（宽度）
+    "height": 256, # 观测图像的空间分辨率（高度）
+    "scene": test_scene,  # 场景路径
+    "scene_dataset": mp3d_scene_dataset, # 场景数据集配置
+    "default_agent": 0, # 默认智能体ID
+    "sensor_height": 1.5,  # 传感器高度（米）
+    "color_sensor": rgb_sensor,  # RGB传感器开关
+    "depth_sensor": depth_sensor,  # 深度传感器开关
+    "semantic_sensor": semantic_sensor,  # 语义传感器开关
+    "seed": 1,  # 用于随机导航的随机种子
+    "enable_physics": False,  # 仅运动学模拟
 }
 
 def make_cfg(settings):
+    """
+    创建完整的仿真配置（多传感器）
+    """
     sim_cfg = habitat_sim.SimulatorConfiguration()
     sim_cfg.gpu_device_id = 0
     sim_cfg.scene_id = settings["scene"]
     sim_cfg.scene_dataset_config_file = settings["scene_dataset"]
     sim_cfg.enable_physics = settings["enable_physics"]
 
-    # Note: all sensors must have the same resolution
+    # 注意：所有传感器必须具有相同的分辨率
     sensors = {
         "color_sensor": {
             "sensor_type": habitat_sim.SensorType.COLOR,
@@ -133,7 +141,7 @@ def make_cfg(settings):
 
             sensor_specs.append(sensor_spec)
 
-    # Here you can specify the amount of displacement in a forward action and the turn angle
+    # 在这里可以指定前进动作的位移量和转向角度
     agent_cfg = habitat_sim.agent.AgentConfiguration()
     agent_cfg.sensor_specifications = sensor_specs
     agent_cfg.action_space = {
@@ -153,6 +161,9 @@ def make_cfg(settings):
 cfg = make_cfg(sim_settings)
 sim = habitat_sim.Simulator(cfg)
 def print_scene_recur(scene, limit_output=10):
+    """
+    递归打印场景图信息（层级、区域、物体）
+    """
     print(
         f"House has {len(scene.levels)} levels, {len(scene.regions)} regions and {len(scene.objects)} objects"
     )
@@ -183,13 +194,13 @@ print_scene_recur(scene)
 random.seed(sim_settings["seed"])
 sim.seed(sim_settings["seed"])
 
-# Set agent state
+# 设置智能体状态
 agent = sim.initialize_agent(sim_settings["default_agent"])
 agent_state = habitat_sim.AgentState()
-agent_state.position = np.array([-0.6, 0.0, 0.0])  # world space
+agent_state.position = np.array([-0.6, 0.0, 0.0])  # 世界坐标系
 agent.set_state(agent_state)
 
-# Get agent state
+# 获取智能体状态
 agent_state = agent.get_state()
 print("agent_state: position", agent_state.position, "rotation", agent_state.rotation)
 

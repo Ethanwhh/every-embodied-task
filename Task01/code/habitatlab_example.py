@@ -22,7 +22,7 @@ from habitat.utils.visualizations.utils import (
 )
 from habitat_sim.utils import viz_utils as vut
 
-# Quiet the Habitat simulator logging
+# 禁用Habitat模拟器日志输出
 os.environ["MAGNUM_LOG"] = "quiet"
 os.environ["HABITAT_SIM_LOG"] = "quiet"
 
@@ -34,9 +34,9 @@ output_path = "./code"
 os.makedirs(output_path, exist_ok=True)
 
 class ShortestPathFollowerAgent(Agent):
-    r"""Implementation of the :ref:`habitat.core.agent.Agent` interface that
-    uses :ref`habitat.tasks.nav.shortest_path_follower.ShortestPathFollower` utility class
-    for extracting the action on the shortest path to the goal.
+    r"""实现了 :ref:`habitat.core.agent.Agent` 接口的智能体，
+    使用 :ref`habitat.tasks.nav.shortest_path_follower.ShortestPathFollower` 工具类
+    来提取通往目标的最短路径动作。
     """
 
     def __init__(self, env: habitat.Env, goal_radius: float):
@@ -57,11 +57,14 @@ class ShortestPathFollowerAgent(Agent):
 
 
 def example_top_down_map_measure():
-    # Create habitat config
+    """
+    演示顶视图地图测量指标的配置和使用，并生成视频
+    """
+    # 创建habitat配置
     config = habitat.get_config(
         config_path="benchmark/nav/pointnav/pointnav_habitat_test.yaml"
     )
-    # Add habitat.tasks.nav.nav.TopDownMap and habitat.tasks.nav.nav.Collisions measures
+    # 添加顶视图地图(TopDownMap)和碰撞(Collisions)测量指标
     with habitat.config.read_write(config):
         config.habitat.task.measurements.update(
             {
@@ -83,44 +86,44 @@ def example_top_down_map_measure():
                 "collisions": CollisionsMeasurementConfig(),
             }
         )
-    # Create dataset
+    # 创建数据集
     dataset = habitat.make_dataset(
         id_dataset=config.habitat.dataset.type, config=config.habitat.dataset
     )
-    # Create simulation environment
+    # 创建仿真环境
     with habitat.Env(config=config, dataset=dataset) as env:
-        # Create ShortestPathFollowerAgent agent
+        # 创建最短路径跟随者智能体
         agent = ShortestPathFollowerAgent(
             env=env,
             goal_radius=config.habitat.task.measurements.success.success_distance,
         )
-        # Create video of agent navigating in the first episode
+        # 录制智能体在第一个episode中导航的视频
         num_episodes = 1
         for _ in range(num_episodes):
-            # Load the first episode and reset agent
+            # 加载第一个episode并重置智能体
             observations = env.reset()
             agent.reset()
 
-            # Get metrics
+            # 获取指标
             info = env.get_metrics()
-            # Concatenate RGB-D observation and topdowm map into one image
+            # 将RGB-D观测和顶视图地图合并为一张图像
             frame = observations_to_image(observations, info)
 
-            # Remove top_down_map from metrics
+            # 从指标中移除top_down_map以便叠加其他文本信息
             info.pop("top_down_map")
-            # Overlay numeric metrics onto frame
+            # 将数值指标叠加到帧上
             frame = overlay_frame(frame, info)
-            # Add fame to vis_frames
+            # 添加帧到vis_frames列表
             vis_frames = [frame]
 
-            # Repeat the steps above while agent doesn't reach the goal
+            # 循环直到智能体到达目标或episode结束
             while not env.episode_over:
-                # Get the next best action
+                # 获取下一个最佳动作
                 action = agent.act(observations)
                 if action is None:
                     break
 
-                # Step in the environment
+                # 执行动作
                 observations = env.step(action)
                 info = env.get_metrics()
                 frame = observations_to_image(observations, info)
@@ -131,12 +134,12 @@ def example_top_down_map_measure():
 
             current_episode = env.current_episode
             video_name = f"{os.path.basename(current_episode.scene_id)}_{current_episode.episode_id}"
-            # Create video from images and save to disk
+            # 将图像序列转换为视频保存到磁盘
             images_to_video(
                 vis_frames, output_path, video_name, fps=6, quality=9
             )
             vis_frames.clear()
-            # Display video
+            # 显示视频（如果运行在支持显示环境）
             vut.display_video(f"{output_path}/{video_name}.mp4")
 
 if __name__ == "__main__":

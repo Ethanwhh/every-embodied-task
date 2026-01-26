@@ -12,13 +12,16 @@ from habitat_sim.utils import common as utils  # 通用工具函数（如坐标�
 from habitat_sim.utils import viz_utils as vut  # 可视化工具函数（如绘制场景、轨迹
 
 def make_cfg(settings):
+    """
+    创建仿真器配置对象
+    """
     sim_cfg = habitat_sim.SimulatorConfiguration()
     sim_cfg.gpu_device_id = 0
     sim_cfg.scene_id = settings["scene"]
-    sim_cfg.scene_dataset_config_file = settings["scene_dataset"]
+    sim_cfg.scene_dataset_config_file = settings["scene_dataset"] # 场景数据集配置文件
     sim_cfg.enable_physics = settings["enable_physics"]
 
-    # Note: all sensors must have the same resolution
+    # 注意：所有传感器必须具有相同的分辨率
     sensors = {
         "color_sensor": {
             "sensor_type": habitat_sim.SensorType.COLOR,
@@ -48,7 +51,7 @@ def make_cfg(settings):
 
             sensor_specs.append(sensor_spec)
 
-    # Here you can specify the amount of displacement in a forward action and the turn angle
+    # 在这里可以指定前进动作的位移量和转向角度
     agent_cfg = habitat_sim.agent.AgentConfiguration()
     agent_cfg.sensor_specifications = sensor_specs
     agent_cfg.action_space = {
@@ -66,12 +69,15 @@ def make_cfg(settings):
     return habitat_sim.Configuration(sim_cfg, [agent_cfg])
 
 def display_map(topdown_map, key_points=None):
+    """
+    显示顶视图地图，并可选地绘制关键点
+    """
     global img_counter
     plt.figure(figsize=(12, 8))
     ax = plt.subplot(1, 1, 1)
     ax.axis("off")
     plt.imshow(topdown_map)
-    # plot points on map
+    # 在地图上绘制点
     if key_points is not None:
         for point in key_points:
             plt.plot(point[0], point[1], marker="o", markersize=10, alpha=0.8)
@@ -183,29 +189,21 @@ semantic_sensor = True
 img_counter = 0
 
 sim_settings = {
-    "width": 256,  # Spatial resolution of the observations
+    "width": 256,  # 观测的空间分辨率
     "height": 256,
-    "scene": test_scene,  # Scene path
+    "scene": test_scene,  # 场景路径
     "scene_dataset": mp3d_scene_dataset,
     "default_agent": 0,
-    "sensor_height": 1.5,  # Height of sensors in meters
-    "color_sensor": rgb_sensor,  # RGB sensor
-    "depth_sensor": depth_sensor,  # Depth sensor
-    "semantic_sensor": semantic_sensor,  # Semantic sensor
-    "seed": 1,  # used in the random navigation
-    "enable_physics": False,  # kinematics only
+    "sensor_height": 1.5,  # 传感器高度（米）
+    "color_sensor": rgb_sensor,  # RGB传感器
+    "depth_sensor": depth_sensor,  # 深度传感器
+    "semantic_sensor": semantic_sensor,  # 语义传感器
+    "seed": 1,  # 用于随机导航的种子
+    "enable_physics": False,  # 仅运动学
 }
 
 cfg = make_cfg(sim_settings)
 sim = habitat_sim.Simulator(cfg)
-
-# the navmesh can also be explicitly loaded
-# sim.pathfinder.load_nav_mesh(
-#     "./data_test/scene_datasets/habitat-test-scenes/apartment_1.navmesh"
-# )
-# sim.pathfinder.load_nav_mesh(
-#     "./data/scene_datasets/mp3d_example/17DRP5sb8fy/17DRP5sb8fy.navmesh"
-# )
 
 meters_per_pixel = 0.12
 custom_height = False 
@@ -213,12 +211,15 @@ height = 1
 
 agent = sim.initialize_agent(sim_settings["default_agent"])
 agent_state = habitat_sim.AgentState()
-agent_state.position = np.array([-0.6, 0.0, 0.0])  # world space
+agent_state.position = np.array([-0.6, 0.0, 0.0])  # 世界坐标系
 agent.set_state(agent_state)
 
 
 img_counter = 0
 def display_sample(rgb_obs, semantic_obs=np.array([]), depth_obs=np.array([])):
+    """
+    显示观测样本（RGB、语义分割、深度图）
+    """
     from habitat_sim.utils.common import d3_40_colors_rgb
 
     rgb_img = Image.fromarray(rgb_obs, mode="RGBA")
@@ -289,7 +290,7 @@ else:
             )
             top_down_map = recolor_map[top_down_map]
             grid_dimensions = (top_down_map.shape[0], top_down_map.shape[1])
-            # convert world trajectory points to maps module grid points
+            # 将世界坐标系中的轨迹点转换为地图模块的网格点
             trajectory = [
                 to_grid(
                     path_point[2],
@@ -304,7 +305,7 @@ else:
             )
             path_initial_tangent = grid_tangent / grid_tangent.length()
             initial_angle = math.atan2(path_initial_tangent[0], path_initial_tangent[1])
-            # draw the agent and trajectory on the map
+            # 在地图上绘制智能体和轨迹
             draw_path(top_down_map, trajectory)
             draw_agent(
                 top_down_map, trajectory[0], initial_angle, agent_radius_px=8
